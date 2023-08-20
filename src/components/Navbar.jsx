@@ -11,14 +11,13 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { Link } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const settings = ["My Blogs", "New Profile", "LogOut"];
-
 function Navbar() {
+    const currentUser = true;
+
     const navigate = useNavigate();
-    const user = false;
+
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -31,8 +30,6 @@ function Navbar() {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
-        navigate("/about")
-       
     };
 
     const handleCloseUserMenu = () => {
@@ -43,22 +40,29 @@ function Navbar() {
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <IconButton
-                        edge="start"
-                        // className={classes.menuButton}
-                        color="inherit"
-                        aria-label="menu"
-                        onClick={()=>{
-                        navigate("/")
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="a"
+                        href="/"
+                        sx={{
+                            mr: 2,
+                            display: { xs: "none", md: "flex" },
+                            p: 1,
+                            fontFamily: "monospace",
+                            fontWeight: 700,
+                            letterSpacing: ".3rem",
+                            color: "inherit",
+                            textDecoration: "none",
                         }}
+                        onClick={() => navigate("/")}
                     >
-                       
                         <img
                             src="../../public/img/blog_logo.png"
                             alt="logo"
-                            width={75}
+                            width={"150px"}
                         />
-                    </IconButton>
+                    </Typography>
 
                     <Box
                         sx={{
@@ -94,19 +98,34 @@ function Navbar() {
                                 display: { xs: "block", md: "none" },
                             }}
                         >
-                            <MenuItem onClick={handleCloseNavMenu}>
+                            <MenuItem
+                                onClick={() => {
+                                    handleCloseNavMenu();
+                                    navigate("/");
+                                }}
+                            >
                                 <Typography textAlign="center">
-                                    <Link to="/">Dashboard</Link>
+                                    Dasboard
                                 </Typography>
                             </MenuItem>
-                            <MenuItem onClick={handleCloseNavMenu}>
+                            <MenuItem
+                                onClick={() => {
+                                    handleCloseNavMenu();
+                                    navigate("/newblog");
+                                }}
+                            >
                                 <Typography textAlign="center">
-                                    <Link to="/newblog">New Blog</Link>
+                                    New Blog
                                 </Typography>
                             </MenuItem>
-                            <MenuItem onClick={handleCloseNavMenu}>
+                            <MenuItem
+                                onClick={() => {
+                                    handleCloseNavMenu();
+                                    navigate("/about");
+                                }}
+                            >
                                 <Typography textAlign="center">
-                                    <Link to="/about">About</Link>
+                                    About
                                 </Typography>
                             </MenuItem>
                         </Menu>
@@ -126,15 +145,14 @@ function Navbar() {
                             letterSpacing: ".3rem",
                             color: "inherit",
                             textDecoration: "none",
+                            p: 1,
                         }}
                     >
-                        <Button>
-                            <img
-                                src="../../public/img/blog_logo.png"
-                                alt="logo"
-                                width={100}
-                            />
-                        </Button>
+                        <img
+                            src="../../public/img/blog_logo.png"
+                            alt="logo"
+                            width={"150px"}
+                        />
                     </Typography>
                     <Box
                         sx={{
@@ -143,27 +161,31 @@ function Navbar() {
                         }}
                     >
                         <Button
-                            onClick={handleCloseNavMenu}
-                            sx={{
-                                my: 2,
-                                color: "white",
-                                display: "block",
-                                textDecoration: "none",
+                            onClick={() => {
+                                handleCloseNavMenu();
+                                navigate("/");
                             }}
-                        >
-                            Dashboard
-                        </Button>
-                        <Button
-                            onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: "white", display: "block" }}
                         >
-                            New Blog
+                            DASHBOARD
                         </Button>
                         <Button
-                            onClick={handleCloseNavMenu}
+                            onClick={() => {
+                                handleCloseNavMenu();
+                                navigate("/newblog");
+                            }}
                             sx={{ my: 2, color: "white", display: "block" }}
                         >
-                            About
+                            NEW BLOG
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                handleCloseNavMenu();
+                                navigate("/about");
+                            }}
+                            sx={{ my: 2, color: "white", display: "block" }}
+                        >
+                            ABOUT
                         </Button>
                     </Box>
 
@@ -175,63 +197,88 @@ function Navbar() {
                             >
                                 <Avatar
                                     alt="Remy Sharp"
-                                    src="../../public/favicon.svg"
+                                    src="/static/images/avatar/2.jpg"
                                 />
                             </IconButton>
                         </Tooltip>
-                        <Menu
-                            sx={{ mt: "45px" }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: "top",
-                                horizontal: "right",
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: "top",
-                                horizontal: "right",
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            {user ? (
-                                settings.map((setting) => (
-                                    <MenuItem
-                                        key={setting}
-                                        onClick={handleCloseUserMenu}
-                                    >
-                                        <Typography textAlign="center">
-                                            {setting}
-                                        </Typography>
-                                    </MenuItem>
-                                ))
-                            ) : (
-                                <Box>
-                                    <MenuItem onClick={handleCloseNavMenu}>
-                                        <Typography textAlign="center">
-                                            <Link
-                                                sx={{ textDecoration: "none" }}
-                                                to="/login"
-                                            >
-                                                Login
-                                            </Link>
-                                        </Typography>
-                                    </MenuItem>
 
-                                    <MenuItem onClick={handleCloseNavMenu}>
-                                        <Typography textAlign="center">
-                                            <Link
-                                                sx={{ textDecoration: "none" }}
-                                                to="/register"
-                                            >
-                                                Register
-                                            </Link>
-                                        </Typography>
-                                    </MenuItem>
-                                </Box>
-                            )}
-                        </Menu>
+                        {currentUser ? (
+                            <Menu
+                                sx={{ mt: "45px" }}
+                                id="menu-appbar"
+                                anchorEl={anchorElUser}
+                                anchorOrigin={{
+                                    vertical: "top",
+                                    horizontal: "right",
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: "top",
+                                    horizontal: "right",
+                                }}
+                                open={Boolean(anchorElUser)}
+                                onClose={handleCloseUserMenu}
+                            >
+                                <MenuItem
+                                    onClick={() => {
+                                        handleCloseUserMenu();
+                                        navigate("/myblogs");
+                                    }}
+                                >
+                                    <Typography textAlign="center">
+                                        My Blogs
+                                    </Typography>
+                                </MenuItem>
+                                <MenuItem
+                                    onClick={() => {
+                                        handleCloseUserMenu();
+                                        navigate("/profile");
+                                    }}
+                                >
+                                    <Typography textAlign="center">
+                                        Profile
+                                    </Typography>
+                                </MenuItem>
+                                <MenuItem
+                                    onClick={() => {
+                                        handleCloseUserMenu();
+                                        navigate("/login");
+                                    }}
+                                >
+                                    <Typography textAlign="center">
+                                        Logout
+                                    </Typography>
+                                </MenuItem>
+                            </Menu>
+                        ) : (
+                            <Menu
+                                sx={{ mt: "45px" }}
+                                id="menu-appbar"
+                                anchorEl={anchorElUser}
+                                anchorOrigin={{
+                                    vertical: "top",
+                                    horizontal: "right",
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: "top",
+                                    horizontal: "right",
+                                }}
+                                open={Boolean(anchorElUser)}
+                                onClose={handleCloseUserMenu}
+                            >
+                                <MenuItem
+                                    onClick={() => {
+                                        handleCloseUserMenu();
+                                        navigate("/login");
+                                    }}
+                                >
+                                    <Typography textAlign="center">
+                                        Login
+                                    </Typography>
+                                </MenuItem>{" "}
+                            </Menu>
+                        )}
                     </Box>
                 </Toolbar>
             </Container>
