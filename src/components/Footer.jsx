@@ -5,14 +5,14 @@ import { Box, Tooltip } from "@mui/material";
 
 function Footer() {
     return (
-        <Tooltip placement="bottom">
+        <Tooltip placement="bottom" >
             <Box
                 sx={{
                     // width: 300,
                     height: 100,
                     backgroundColor: "primary.dark",
                     display: { xs: "flex" },
-                    flexDirection:"column",
+                    flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
                 }}
