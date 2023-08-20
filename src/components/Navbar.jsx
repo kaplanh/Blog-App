@@ -12,12 +12,12 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "@mui/material";
-
-
+import { useNavigate } from "react-router-dom";
 
 const settings = ["My Blogs", "New Profile", "LogOut"];
 
 function Navbar() {
+    const navigate = useNavigate();
     const user = false;
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -31,6 +31,8 @@ function Navbar() {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
+        navigate("/about")
+       
     };
 
     const handleCloseUserMenu = () => {
@@ -41,29 +43,22 @@ function Navbar() {
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="../../public/img/blog logo.png"
-                        sx={{
-                            mr: 2,
-                            display: { xs: "none", md: "flex" },
-                            fontFamily: "monospace",
-                            fontWeight: 700,
-                            letterSpacing: ".3rem",
-                            color: "inherit",
-                            textDecoration: "none",
+                    <IconButton
+                        edge="start"
+                        // className={classes.menuButton}
+                        color="inherit"
+                        aria-label="menu"
+                        onClick={()=>{
+                        navigate("/")
                         }}
                     >
-                        <Button>
-                            <img
-                                src="../../public/img/blog_logo.png"
-                                alt="logo"
-                                width={75}
-                            />
-                        </Button>
-                    </Typography>
+                       
+                        <img
+                            src="../../public/img/blog_logo.png"
+                            alt="logo"
+                            width={75}
+                        />
+                    </IconButton>
 
                     <Box
                         sx={{
