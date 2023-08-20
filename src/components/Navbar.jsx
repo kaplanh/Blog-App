@@ -12,10 +12,9 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "@mui/material";
-import Login from "../pages/Login";
 
-const links = ["/", "newblog", "about"];
-const pages = ["Dashboard", "New Blog", "About"];
+
+
 const settings = ["My Blogs", "New Profile", "LogOut"];
 
 function Navbar() {
@@ -107,12 +106,12 @@ function Navbar() {
                             </MenuItem>
                             <MenuItem onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center">
-                                    <Link to="/">New Blog</Link>
+                                    <Link to="/newblog">New Blog</Link>
                                 </Typography>
                             </MenuItem>
                             <MenuItem onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center">
-                                    <Link to="/">About</Link>
+                                    <Link to="/about">About</Link>
                                 </Typography>
                             </MenuItem>
                         </Menu>
@@ -213,12 +212,12 @@ function Navbar() {
                                     </MenuItem>
                                 ))
                             ) : (
-                                <>
+                                <Box>
                                     <MenuItem onClick={handleCloseNavMenu}>
                                         <Typography textAlign="center">
                                             <Link
                                                 sx={{ textDecoration: "none" }}
-                                                to="/"
+                                                to="/login"
                                             >
                                                 Login
                                             </Link>
@@ -229,13 +228,13 @@ function Navbar() {
                                         <Typography textAlign="center">
                                             <Link
                                                 sx={{ textDecoration: "none" }}
-                                                to="/"
+                                                to="/register"
                                             >
                                                 Register
                                             </Link>
                                         </Typography>
                                     </MenuItem>
-                                </>
+                                </Box>
                             )}
                         </Menu>
                     </Box>
