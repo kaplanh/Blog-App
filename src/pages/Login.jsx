@@ -10,20 +10,12 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Formik, Form } from "formik";
 import { object, string } from "yup";
-import { IconButton } from "@mui/material";
-import { useState } from "react";
-import { VisibilityOff } from "@mui/icons-material";
-import { Visibility } from "@mui/icons-material";
-// import { login } from "../hooks/useAuthCall"
-// import useAuthCall from "../hooks/useAuthCall";
+
+
+import useAuthCall from "../hooks/useAuthCall";
 
 const Login = () => {
-
-    const [showPassword, setShowPassword] = useState(false);
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-    // const { login } = useAuthCall();
+    const { login } = useAuthCall();
 
     //? harici validasyon şemasi
     const loginSchema = object({
@@ -33,7 +25,7 @@ const Login = () => {
         password: string()
             .required("Bu alan zorunludur")
             .min(8, "En az 8 karakter girilmelidir")
-            .max(16, "En fazla 16 karakter girilmelidir")
+            .max(20, "En fazla 16 karakter girilmelidir")
             .matches(/\d+/, "En az bir rakam içermelidir.")
             .matches(/[a-z]/, "En az bir küçük harf içermelidir.")
             .matches(/[A-Z]/, "En az bir büyük harf içermelidir.")
@@ -42,7 +34,6 @@ const Login = () => {
                 "En az bir özel karekter içermelidir."
             ),
     });
-     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     return (
         <Container maxWidth="lg">
@@ -55,16 +46,10 @@ const Login = () => {
                     p: 2,
                 }}
             >
-                {/* <Grid item xs={12} mb={3}>
-                    <Typography variant="h3" color="primary" align="center">
-                        STOCK APP
-                    </Typography>
-                </Grid> */}
-
                 <Grid item xs={12} sm={10} md={6}>
                     <Avatar
                         sx={{
-                            backgroundColor: "secondary.light",
+                            backgroundColor: "primary.light",
                             m: "auto",
                             width: 40,
                             height: 40,
@@ -76,7 +61,7 @@ const Login = () => {
                         variant="h4"
                         align="center"
                         mb={4}
-                        color="secondary.light"
+                        color="primary.light"
                     >
                         Login
                     </Typography>
@@ -124,9 +109,7 @@ const Login = () => {
                                         label="password"
                                         name="password"
                                         id="password"
-                                        type={
-                                            showPassword ? "text" : "password"
-                                        }
+                                        type="password"
                                         variant="outlined"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
@@ -136,22 +119,7 @@ const Login = () => {
                                             Boolean(errors.password)
                                         }
                                         helperText={errors.password}
-                                    >
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleClickShowPassword}
-                                            onMouseDown={
-                                                handleMouseDownPassword
-                                            }
-                                            edge="end"
-                                        >
-                                            {showPassword ? (
-                                                <VisibilityOff />
-                                            ) : (
-                                                <Visibility />
-                                            )}
-                                        </IconButton>
-                                    </TextField>
+                                    ></TextField>
                                     <Button variant="contained" type="submit">
                                         Submit
                                     </Button>
@@ -161,7 +129,10 @@ const Login = () => {
                     </Formik>
 
                     <Box sx={{ textAlign: "center", mt: 2 }}>
-                        <Link to="/register">Do you have not an account?</Link>
+                        <Link to="/register" sx={{ textDecoration: "none" }}>
+                            Already have an account?
+                            <Typography color={"error"}>Sign up</Typography>
+                        </Link>
                     </Box>
                 </Grid>
 

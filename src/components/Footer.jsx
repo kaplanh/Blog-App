@@ -33,7 +33,7 @@ function Footer() {
                 </Box>
                 <Typography
                     variant="h6"
-                    noWrap
+                    nowrap
                     component="a"
                     sx={{
                         mr: 2,
