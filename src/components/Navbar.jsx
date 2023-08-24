@@ -1,4 +1,6 @@
 import * as React from "react";
+import useAuthCall from "../hooks/useAuthCall"
+import { avatar } from "../assets/avatar";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,9 +14,12 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 
 function Navbar() {
-    const currentUser = true;
+    const {logout}=useAuthCall()
+    const {currentUser}=useSelector((state)=>state.auth)
 
     const navigate = useNavigate();
 
@@ -195,14 +200,12 @@ function Navbar() {
                                 onClick={handleOpenUserMenu}
                                 sx={{ p: 0 }}
                             >
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    src="/static/images/avatar/2.jpg"
-                                />
+                                <Avatar alt="avatar" src={avatar} />
+                                {/* {currentUser?.image} */}
                             </IconButton>
                         </Tooltip>
 
-                        {currentUser ? (
+                        {currentUser?.email ? (
                             <Menu
                                 sx={{ mt: "45px" }}
                                 id="menu-appbar"
@@ -243,6 +246,7 @@ function Navbar() {
                                     onClick={() => {
                                         handleCloseUserMenu();
                                         navigate("/login");
+                                        logout()
                                     }}
                                 >
                                     <Typography textAlign="center">
@@ -276,7 +280,17 @@ function Navbar() {
                                     <Typography textAlign="center">
                                         Login
                                     </Typography>
-                                </MenuItem>{" "}
+                                </MenuItem>
+                                <MenuItem
+                                    onClick={() => {
+                                        handleCloseUserMenu();
+                                        navigate("/register");
+                                    }}
+                                >
+                                    <Typography textAlign="center">
+                                        Register
+                                    </Typography>
+                                </MenuItem>
                             </Menu>
                         )}
                     </Box>

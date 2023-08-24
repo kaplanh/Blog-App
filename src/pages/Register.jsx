@@ -5,13 +5,13 @@ import LockIcon from "@mui/icons-material/Lock";
 import image from "../assets/result.svg";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import { Link } from "react-router-dom";
-import RegisterForm, { registerSchema } from "../components/RegisterForm";
+import Link from "@mui/material/Link";
+import RegisterForm, { registerSchema } from "../components/auth/RegisterForm";
 import { Formik } from "formik";
-// import useAuthCall from "../hooks/useAuthCall";
+import useAuthCall from "../hooks/useAuthCall";
 
 const Register = () => {
-    // const { register } = useAuthCall();
+    const { register } = useAuthCall();
 
     return (
         <Container maxWidth="lg">
@@ -63,10 +63,12 @@ const Register = () => {
                     ></Formik>
 
                     <Box sx={{ textAlign: "center", mt: 2 }}>
-                        <Link to="/login" sx={{ textDecoration: "none" }}>
+                        <Typography>
                             Already have an account?
-                            <Typography color={"error"}>Sign in</Typography>
-                        </Link>
+                            <Link href="/login" color={"error"} sx={{ml:1}}>
+                                Sign up
+                            </Link>
+                        </Typography>
                     </Box>
                 </Grid>
 

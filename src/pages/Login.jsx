@@ -1,6 +1,7 @@
 import Avatar from "@mui/material/Avatar";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
+
 import Typography from "@mui/material/Typography";
 import LockIcon from "@mui/icons-material/Lock";
 import image from "../assets/result.svg";
@@ -10,7 +11,6 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Formik, Form } from "formik";
 import { object, string } from "yup";
-
 
 import useAuthCall from "../hooks/useAuthCall";
 
@@ -129,10 +129,12 @@ const Login = () => {
                     </Formik>
 
                     <Box sx={{ textAlign: "center", mt: 2 }}>
-                        <Link to="/register" sx={{ textDecoration: "none" }}>
+                        <Typography>
                             Already have an account?
-                            <Typography color={"error"}>Sign up</Typography>
-                        </Link>
+                            <Link to="/register" color={"error"} sx={{ ml: 1 }}>
+                                Sign up
+                            </Link>
+                        </Typography>
                     </Box>
                 </Grid>
 

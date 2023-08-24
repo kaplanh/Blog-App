@@ -1,5 +1,3 @@
-
-import axios from "axios";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -10,59 +8,65 @@ import {
     logoutSuccess,
     registerSuccess,
 } from "../features/authSlice";
+import useAxios from "./useAxios";
 
 const useAuthCall = () => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { axiosPublic } = useAxios();
+    const navigate = useNavigate();
 
-    const login = async (userData) => {
+    const login = async (userInfo) => {
         dispatch(fetchStart());
         try {
-            const { data } = await axios.post(
-                `${import.meta.env.VITE_BASE_URL}/users/auth/login/`,
-                userData
+            const { data } = await axiosPublic.post(
+                `/users/auth/login/`,
+                userInfo
             );
+
             dispatch(loginSuccess(data));
             toastSuccessNotify("login islemi basarili");
-            navigate("/stock");
+            //   toastSuccessNotify("Login performed");
+            navigate("/");
         } catch (error) {
             console.log(error.message);
             dispatch(fetchFail());
-            toastErrorNotify(error.response.data.non_field_errors[0]);
+            toastErrorNotify("login islemi basarisiz");
+            //   toastErrorNotify("Login can not be performed");
         }
-        //? axios kullandigimizda status koda bakmadan catch icindeki errordeki hata mesajlarini alip  toastErrorNotify(error.response.data.non_field_errors[0])  seklinde istersek backend in hazirladigi hata mesajini istenilen dilde bu sekilde tostify icinde ekrana bastirabiliriz
     };
 
     const logout = async () => {
         dispatch(fetchStart());
         try {
-            await axios.post(
-                `${import.meta.env.VITE_BASE_URL}/users/auth/logout/`
-            );
+            await axiosPublic.post(`/users/auth/logout/`);
             dispatch(logoutSuccess());
             toastSuccessNotify("logout islemi basarili");
-            navigate("/");
+            //   toastSuccessNotify("Logout performed");
+            navigate("/login");
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             dispatch(fetchFail());
             toastErrorNotify("Logout islemi basarisiz");
+            //   toastErrorNotify("Logout can not be performed");
         }
     };
 
-    const register = async (userData) => {
+    const register = async (userInfo) => {
         dispatch(fetchStart());
         try {
-            const { data } = await axios.post(
-                `${import.meta.env.VITE_BASE_URL}/users/register/`,
-                userData
+            const { data } = await axiosPublic.post(
+                `/users/register/`,
+                userInfo
             );
             dispatch(registerSuccess(data));
             toastSuccessNotify("kayit islemi basarili");
+            //   toastSuccessNotify("Register performed");
             navigate("/stock");
         } catch (error) {
             console.log(error);
             dispatch(fetchFail());
             toastErrorNotify("Kayit islemi basarisiz olmustur.");
+            //   toastErrorNotify("Register can not be performed");
         }
     };
 

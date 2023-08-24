@@ -6,8 +6,7 @@ const authSlice = createSlice({
         currentUser: null,
         loading: false,
         error: false,
-        // isAdmin: false,
-        token: null,
+        key: null,
     },
     reducers: {
         fetchStart: (state) => {
@@ -16,9 +15,8 @@ const authSlice = createSlice({
         },
         loginSuccess: (state, action) => {
             state.loading = false;
-            state.currentUser = action.payload?.user?.username;
-            // state.isAdmin = action.payload?.user?.is_superuser;
-            state.token = action.payload?.key;
+            state.currentUser = action?.payload?.user;            
+            state.token = action?.payload?.key;
         },
         logoutSuccess: (state) => {
             state.loading = false;
@@ -27,7 +25,7 @@ const authSlice = createSlice({
         },
         registerSuccess: (state, { payload }) => {
             state.loading = false;
-            state.currentUser = payload?.username;
+            state.currentUser = payload;
             state.token = payload?.token;
             state.error = false;
         },
