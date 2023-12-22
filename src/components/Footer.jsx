@@ -30,7 +30,11 @@ function Footer() {
     //  }, [currentUser]);
 
     return (
-        <Tooltip placement="bottom">
+        <Tooltip
+            placement="bottom"
+            position="static"
+            bottom="0px" width="100%" 
+        >
             <Box
                 sx={{
                     // width: 300,
